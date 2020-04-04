@@ -2,7 +2,7 @@
 
 Design strategist (brand, strategy, design, development and consultation), bridging the gap between strategy conceived and strategy executed. Aligning the goals of organisations to the needs of their customers — creating exceptional brand experiences.
 
-To view more visit my freelancing site [lucidity.design](https://lucidity.design/) or view my arwork at [http://richardgeorgedavis.com/](https://richardgeorgedavis.com/)
+To view more visit my freelancing site [lucidity.design](https://lucidity.design/) or view my arwork at [richardgeorgedavis.com](https://richardgeorgedavis.com/)
 
 
 
