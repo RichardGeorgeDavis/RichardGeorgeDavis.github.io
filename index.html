@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Richard George Davis | Strategy, Design, Build</title>
+    <meta
+      name="description"
+      content="Design strategist and builder bridging strategy and execution through brand, design, and development."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f5f1e7;
+        --ink: #1d2a45;
+        --ink-soft: #3d4f70;
+        --accent: #ff5a45;
+        --accent-warm: #f1b54d;
+        --accent-cool: #2d9f91;
+        --card: #fff9ee;
+        --line: rgba(29, 42, 69, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI",
+          sans-serif;
+        color: var(--ink);
+        background: radial-gradient(
+            1200px 600px at 95% -10%,
+            rgba(241, 181, 77, 0.22),
+            transparent 55%
+          ),
+          radial-gradient(
+            900px 500px at -10% 30%,
+            rgba(45, 159, 145, 0.2),
+            transparent 60%
+          ),
+          var(--bg);
+        min-height: 100vh;
+        line-height: 1.5;
+      }
+
+      .noise {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.3;
+        background-image: radial-gradient(
+          rgba(29, 42, 69, 0.08) 0.55px,
+          transparent 0.55px
+        );
+        background-size: 3px 3px;
+        mask-image: linear-gradient(to bottom, black 35%, transparent 100%);
+      }
+
+      .blob {
+        position: fixed;
+        filter: blur(55px);
+        opacity: 0.36;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .blob-a {
+        width: 340px;
+        height: 340px;
+        background: var(--accent);
+        top: -80px;
+        right: -20px;
+        animation: driftA 12s ease-in-out infinite alternate;
+      }
+
+      .blob-b {
+        width: 320px;
+        height: 320px;
+        background: var(--accent-cool);
+        bottom: -120px;
+        left: -80px;
+        animation: driftB 15s ease-in-out infinite alternate;
+      }
+
+      @keyframes driftA {
+        from {
+          transform: translate(0, 0);
+        }
+        to {
+          transform: translate(-60px, 40px);
+        }
+      }
+
+      @keyframes driftB {
+        from {
+          transform: translate(0, 0);
+        }
+        to {
+          transform: translate(70px, -45px);
+        }
+      }
+
+      .site {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 26px 20px 60px;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 30px;
+      }
+
+      .brand {
+        font-weight: 700;
+        font-size: 0.95rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .nav {
+        display: flex;
+        gap: 12px;
+      }
+
+      .nav a {
+        text-decoration: none;
+        color: var(--ink-soft);
+        font-weight: 500;
+        border: 1px solid var(--line);
+        padding: 8px 14px;
+        border-radius: 999px;
+        transition: 0.2s ease;
+      }
+
+      .nav a:hover {
+        color: var(--ink);
+        border-color: var(--ink-soft);
+        transform: translateY(-1px);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 24px;
+        align-items: stretch;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        background: linear-gradient(
+            140deg,
+            rgba(255, 90, 69, 0.08),
+            transparent 42%
+          ),
+          var(--card);
+        border-radius: 22px;
+        padding: 28px;
+        box-shadow: 0 14px 40px rgba(29, 42, 69, 0.07);
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 6px 11px;
+        background: rgba(29, 42, 69, 0.08);
+        border-radius: 999px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 6vw, 4.35rem);
+        line-height: 0.98;
+        font-weight: 700;
+      }
+
+      .hero h1 span {
+        display: block;
+        font-family: "Newsreader", Georgia, serif;
+        font-weight: 600;
+        font-style: italic;
+        color: var(--ink-soft);
+      }
+
+      .lead {
+        margin: 18px 0 22px;
+        max-width: 62ch;
+        color: var(--ink-soft);
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .btn {
+        text-decoration: none;
+        color: var(--ink);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 10px 14px;
+        font-weight: 600;
+        background: #fffdf7;
+        transition: 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        border-color: var(--ink-soft);
+      }
+
+      .btn-primary {
+        background: linear-gradient(
+          110deg,
+          var(--accent) 0%,
+          #ff7f4a 40%,
+          var(--accent-warm) 100%
+        );
+        border-color: transparent;
+        color: #fff;
+      }
+
+      .signal {
+        display: grid;
+        gap: 10px;
+      }
+
+      .signal-card {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 14px 16px;
+        background: #fffdf8;
+      }
+
+      .signal-label {
+        font-size: 0.77rem;
+        color: var(--ink-soft);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .signal-value {
+        margin-top: 4px;
+        font-size: 1.15rem;
+        font-weight: 600;
+      }
+
+      .section {
+        margin-top: 28px;
+      }
+
+      .section h2 {
+        margin: 0 0 14px;
+        font-size: clamp(1.25rem, 2.5vw, 1.8rem);
+      }
+
+      .cards {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        background: #fffdf8;
+        border-radius: 16px;
+        padding: 18px;
+      }
+
+      .card h3 {
+        margin: 0;
+        font-size: 1.05rem;
+      }
+
+      .card p {
+        margin: 9px 0 0;
+        color: var(--ink-soft);
+      }
+
+      .projects {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .project {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 20px;
+        background: linear-gradient(
+            160deg,
+            rgba(45, 159, 145, 0.08),
+            transparent 42%
+          ),
+          #fffdf8;
+        text-decoration: none;
+        color: inherit;
+        transition: 0.2s ease;
+      }
+
+      .project:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 26px rgba(29, 42, 69, 0.11);
+      }
+
+      .project small {
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        font-weight: 600;
+        color: var(--ink-soft);
+      }
+
+      .project h3 {
+        margin: 8px 0 8px;
+      }
+
+      .project p {
+        margin: 0;
+        color: var(--ink-soft);
+      }
+
+      .footer {
+        margin-top: 24px;
+        text-align: center;
+        color: var(--ink-soft);
+        font-size: 0.92rem;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: reveal 0.7s ease forwards;
+      }
+
+      .d1 {
+        animation-delay: 0.08s;
+      }
+
+      .d2 {
+        animation-delay: 0.16s;
+      }
+
+      .d3 {
+        animation-delay: 0.24s;
+      }
+
+      @keyframes reveal {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .cards {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .projects {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .top {
+          flex-direction: column;
+          align-items: flex-start;
+          margin-bottom: 22px;
+        }
+
+        .nav {
+          width: 100%;
+          overflow-x: auto;
+          padding-bottom: 2px;
+        }
+
+        .cards {
+          grid-template-columns: 1fr;
+        }
+
+        .panel {
+          padding: 20px;
+          border-radius: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="blob blob-a" aria-hidden="true"></div>
+    <div class="blob blob-b" aria-hidden="true"></div>
+
+    <main class="site">
+      <header class="top reveal">
+        <div class="brand">Richard George Davis</div>
+        <nav class="nav" aria-label="Primary">
+          <a href="#services">Services</a>
+          <a href="#work">Work</a>
+          <a href="https://lucidity.design/" target="_blank" rel="noopener"
+            >Lucidity</a
+          >
+          <a
+            href="https://richardgeorgedavis.com/"
+            target="_blank"
+            rel="noopener"
+            >Portfolio</a
+          >
+        </nav>
+      </header>
+
+      <section class="hero">
+        <article class="panel reveal d1">
+          <div class="eyebrow">Brand + Product + Build</div>
+          <h1>
+            Strategy that moves
+            <span>from idea to impact.</span>
+          </h1>
+          <p class="lead">
+            I bridge the gap between what organizations plan and what people
+            actually experience, through brand strategy, digital design, and
+            practical implementation.
+          </p>
+          <div class="links">
+            <a class="btn btn-primary" href="mailto:hello@lucidity.design"
+              >Start a project</a
+            >
+            <a
+              class="btn"
+              href="https://richardgeorgedavis.com/"
+              target="_blank"
+              rel="noopener"
+              >View portfolio</a
+            >
+          </div>
+        </article>
+
+        <aside class="panel signal reveal d2">
+          <div class="signal-card">
+            <div class="signal-label">Focus</div>
+            <div class="signal-value">Brand systems + digital products</div>
+          </div>
+          <div class="signal-card">
+            <div class="signal-label">Operating style</div>
+            <div class="signal-value">Strategic clarity + hands-on delivery</div>
+          </div>
+          <div class="signal-card">
+            <div class="signal-label">Currently exploring</div>
+            <div class="signal-value">Realtime, generative visual systems</div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="services" class="section reveal d2">
+        <h2>How I help</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>Strategy Architecture</h3>
+            <p>
+              Clarifying positioning, voice, and customer journeys into
+              actionable direction.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Experience Design</h3>
+            <p>
+              Designing digital touchpoints that are useful, coherent, and
+              unmistakably on-brand.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Execution & Prototyping</h3>
+            <p>
+              Rapidly translating direction into testable, working artifacts.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="work" class="section reveal d3">
+        <h2>Selected links</h2>
+        <div class="projects">
+          <a
+            class="project"
+            href="https://lucidity.design/"
+            target="_blank"
+            rel="noopener"
+          >
+            <small>Freelance studio</small>
+            <h3>lucidity.design</h3>
+            <p>Services, approach, and current consulting focus.</p>
+          </a>
+          <a
+            class="project"
+            href="https://richardgeorgedavis.com/"
+            target="_blank"
+            rel="noopener"
+          >
+            <small>Portfolio</small>
+            <h3>richardgeorgedavis.com</h3>
+            <p>Case studies and visual direction across client projects.</p>
+          </a>
+          <a
+            class="project"
+            href="https://richardgeorgedavis.github.io/Neural-Network/"
+            target="_blank"
+            rel="noopener"
+          >
+            <small>Experimental</small>
+            <h3>Biological Neural Network</h3>
+            <p>Cinema4D + three.js exploration of emergent visual behavior.</p>
+          </a>
+          <a
+            class="project"
+            href="https://github.com/RichardGeorgeDavis"
+            target="_blank"
+            rel="noopener"
+          >
+            <small>Code</small>
+            <h3>GitHub profile</h3>
+            <p>Experiments, demos, and evolving technical playgrounds.</p>
+          </a>
+        </div>
+      </section>
+
+      <footer class="footer reveal d3">
+        <p>Designed and built by Richard George Davis, <span id="year"></span>.</p>
+      </footer>
+    </main>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
