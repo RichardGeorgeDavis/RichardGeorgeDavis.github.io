@@ -6,8 +6,29 @@
     <title>Richard George Davis | Strategy, Design, Build</title>
     <meta
       name="description"
-      content="Design strategist and builder bridging strategy and execution through brand, design, and development."
+      content="Brand + Product + Build. Strategy that moves from idea to impact."
     />
+    <script>
+      (function () {
+        var storageKey = "rgd-theme";
+        var savedTheme = null;
+        try {
+          savedTheme = localStorage.getItem(storageKey);
+        } catch (e) {}
+
+        var systemPrefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var theme =
+          savedTheme === "dark" || savedTheme === "light"
+            ? savedTheme
+            : systemPrefersDark
+              ? "dark"
+              : "light";
+
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -23,7 +44,33 @@
         --accent-warm: #f1b54d;
         --accent-cool: #2d9f91;
         --card: #fff9ee;
+        --surface: #fffdf8;
+        --button-bg: #fffdf7;
         --line: rgba(29, 42, 69, 0.14);
+        --bg-glow-a: rgba(241, 181, 77, 0.22);
+        --bg-glow-b: rgba(45, 159, 145, 0.2);
+        --noise-dot: rgba(29, 42, 69, 0.08);
+        --panel-tint: rgba(255, 90, 69, 0.08);
+        --project-tint: rgba(45, 159, 145, 0.08);
+        --shadow: rgba(29, 42, 69, 0.07);
+        --blob-opacity: 0.36;
+      }
+
+      :root[data-theme="dark"] {
+        --bg: #0f1524;
+        --ink: #f6efe0;
+        --ink-soft: #c3cde2;
+        --card: #182236;
+        --surface: #1b253b;
+        --button-bg: #1c2940;
+        --line: rgba(236, 230, 218, 0.2);
+        --bg-glow-a: rgba(255, 110, 79, 0.22);
+        --bg-glow-b: rgba(45, 159, 145, 0.2);
+        --noise-dot: rgba(246, 239, 224, 0.08);
+        --panel-tint: rgba(255, 90, 69, 0.14);
+        --project-tint: rgba(45, 159, 145, 0.14);
+        --shadow: rgba(0, 0, 0, 0.34);
+        --blob-opacity: 0.3;
       }
 
       * {
@@ -42,12 +89,12 @@
         color: var(--ink);
         background: radial-gradient(
             1200px 600px at 95% -10%,
-            rgba(241, 181, 77, 0.22),
+            var(--bg-glow-a),
             transparent 55%
           ),
           radial-gradient(
             900px 500px at -10% 30%,
-            rgba(45, 159, 145, 0.2),
+            var(--bg-glow-b),
             transparent 60%
           ),
           var(--bg);
@@ -61,7 +108,7 @@
         pointer-events: none;
         opacity: 0.3;
         background-image: radial-gradient(
-          rgba(29, 42, 69, 0.08) 0.55px,
+          var(--noise-dot) 0.55px,
           transparent 0.55px
         );
         background-size: 3px 3px;
@@ -71,7 +118,7 @@
       .blob {
         position: fixed;
         filter: blur(55px);
-        opacity: 0.36;
+        opacity: var(--blob-opacity);
         z-index: -1;
         pointer-events: none;
       }
@@ -138,17 +185,50 @@
         gap: 12px;
       }
 
-      .nav a {
+      .nav a,
+      .theme-toggle {
         text-decoration: none;
         color: var(--ink-soft);
         font-weight: 500;
         border: 1px solid var(--line);
         padding: 8px 14px;
         border-radius: 999px;
+        background: transparent;
+        font-family: inherit;
+        font-size: 1rem;
+        cursor: pointer;
         transition: 0.2s ease;
       }
 
-      .nav a:hover {
+      .theme-toggle {
+        width: 42px;
+        padding: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .theme-toggle svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+        fill: currentColor;
+      }
+
+      .theme-toggle .icon-sun {
+        display: none;
+      }
+
+      :root[data-theme="dark"] .theme-toggle .icon-sun {
+        display: block;
+      }
+
+      :root[data-theme="dark"] .theme-toggle .icon-moon {
+        display: none;
+      }
+
+      .nav a:hover,
+      .theme-toggle:hover {
         color: var(--ink);
         border-color: var(--ink-soft);
         transform: translateY(-1px);
@@ -156,7 +236,7 @@
 
       .hero {
         display: grid;
-        grid-template-columns: 1.2fr 0.8fr;
+        grid-template-columns: 1.8fr 0.8fr;
         gap: 24px;
         align-items: stretch;
       }
@@ -165,19 +245,19 @@
         border: 1px solid var(--line);
         background: linear-gradient(
             140deg,
-            rgba(255, 90, 69, 0.08),
+            var(--panel-tint),
             transparent 42%
           ),
           var(--card);
         border-radius: 22px;
         padding: 28px;
-        box-shadow: 0 14px 40px rgba(29, 42, 69, 0.07);
+        box-shadow: 0 14px 40px var(--shadow);
       }
 
       .eyebrow {
         display: inline-block;
         padding: 6px 11px;
-        background: rgba(29, 42, 69, 0.08);
+        background: var(--line);
         border-radius: 999px;
         font-size: 0.8rem;
         text-transform: uppercase;
@@ -188,7 +268,7 @@
       h1 {
         margin: 0;
         font-size: clamp(2rem, 6vw, 4.35rem);
-        line-height: 0.98;
+        line-height: 1.2;
         font-weight: 700;
       }
 
@@ -219,7 +299,7 @@
         border-radius: 12px;
         padding: 10px 14px;
         font-weight: 600;
-        background: #fffdf7;
+        background: var(--button-bg);
         transition: 0.2s ease;
       }
 
@@ -248,7 +328,7 @@
         border: 1px solid var(--line);
         border-radius: 16px;
         padding: 14px 16px;
-        background: #fffdf8;
+        background: var(--surface);
       }
 
       .signal-label {
@@ -281,7 +361,7 @@
 
       .card {
         border: 1px solid var(--line);
-        background: #fffdf8;
+        background: var(--surface);
         border-radius: 16px;
         padding: 18px;
       }
@@ -308,10 +388,10 @@
         padding: 20px;
         background: linear-gradient(
             160deg,
-            rgba(45, 159, 145, 0.08),
+            var(--project-tint),
             transparent 42%
           ),
-          #fffdf8;
+          var(--surface);
         text-decoration: none;
         color: inherit;
         transition: 0.2s ease;
@@ -319,7 +399,7 @@
 
       .project:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 26px rgba(29, 42, 69, 0.11);
+        box-shadow: 0 8px 26px var(--shadow);
       }
 
       .project small {
@@ -336,6 +416,34 @@
       .project p {
         margin: 0;
         color: var(--ink-soft);
+      }
+
+      .work-note {
+        margin: 0;
+        color: var(--ink-soft);
+      }
+
+      .loop {
+        margin: 14px 0 0;
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface);
+      }
+
+      .loop strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .contact-list {
+        margin: 12px 0;
+        padding-left: 20px;
+        color: var(--ink-soft);
+      }
+
+      .contact-list li {
+        margin: 8px 0;
       }
 
       .footer {
@@ -419,15 +527,37 @@
         <nav class="nav" aria-label="Primary">
           <a href="#services">Services</a>
           <a href="#work">Work</a>
-          <a href="https://lucidity.design/" target="_blank" rel="noopener"
-            >Lucidity</a
+          <a href="#contact">Contact</a>
+          <a href="http://rgd.bio.link/" target="_blank" rel="noopener">Hub</a>
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            type="button"
+            aria-label="Switch theme"
+            aria-pressed="false"
+            title="Switch theme"
           >
-          <a
-            href="https://richardgeorgedavis.com/"
-            target="_blank"
-            rel="noopener"
-            >Portfolio</a
-          >
+            <svg
+              class="icon-moon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M14.5 2.5c-2.3 1.8-3.8 4.6-3.8 7.8 0 5.4 4.4 9.8 9.8 9.8.3 0 .7 0 1-.1-1.9 1.9-4.4 3-7.2 3-5.8 0-10.5-4.7-10.5-10.5 0-4.8 3.2-8.9 7.6-10 .8-.2 2.1-.4 3.1-.3z"
+              />
+            </svg>
+            <svg
+              class="icon-sun"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M12 4a1 1 0 0 1 1 1v1.5a1 1 0 1 1-2 0V5a1 1 0 0 1 1-1zm0 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7-4a1 1 0 0 1 1 1 1 1 0 0 1-1 1h-1.5a1 1 0 1 1 0-2H19zM6.5 12a1 1 0 0 1-1 1H4a1 1 0 0 1 0-2h1.5a1 1 0 0 1 1 1zm9.55 4.55a1 1 0 0 1 1.4 0l1.06 1.06a1 1 0 1 1-1.42 1.42l-1.05-1.06a1 1 0 0 1 0-1.42zM6.91 6.91a1 1 0 0 1 1.42 0l1.05 1.06a1 1 0 1 1-1.41 1.42L6.9 8.33a1 1 0 0 1 0-1.42zm10.54 0a1 1 0 0 1 0 1.42l-1.06 1.05a1 1 0 1 1-1.41-1.42l1.05-1.06a1 1 0 0 1 1.42 0zM8.33 16.03a1 1 0 0 1 0 1.42l-1.06 1.05a1 1 0 0 1-1.41-1.41l1.05-1.06a1 1 0 0 1 1.42 0z"
+              />
+            </svg>
+          </button>
         </nav>
       </header>
 
@@ -439,21 +569,16 @@
             <span>from idea to impact.</span>
           </h1>
           <p class="lead">
-            I bridge the gap between what organizations plan and what people
-            actually experience, through brand strategy, digital design, and
-            practical implementation.
+            I bridge the gap between what organisations plan and what people
+            actually experience &mdash; through brand strategy, digital design, and
+            hands-on implementation. I build clear systems, ship usable
+            products, and sweat the details that make things feel effortless.
           </p>
           <div class="links">
-            <a class="btn btn-primary" href="mailto:hello@lucidity.design"
+            <a class="btn btn-primary" href="http://rgd.bio.link/"
               >Start a project</a
             >
-            <a
-              class="btn"
-              href="https://richardgeorgedavis.com/"
-              target="_blank"
-              rel="noopener"
-              >View portfolio</a
-            >
+            <a class="btn" href="http://rgd.bio.link/">View links + work</a>
           </div>
         </article>
 
@@ -474,84 +599,106 @@
       </section>
 
       <section id="services" class="section reveal d2">
-        <h2>How I help</h2>
+        <h2>Services</h2>
         <div class="cards">
           <article class="card">
             <h3>Strategy Architecture</h3>
             <p>
               Clarifying positioning, voice, and customer journeys into
-              actionable direction.
+              actionable direction &mdash; so teams stop guessing and start aligning.
             </p>
           </article>
           <article class="card">
             <h3>Experience Design</h3>
             <p>
               Designing digital touchpoints that are useful, coherent, and
-              unmistakably on-brand.
+              unmistakably on-brand &mdash; from structure to interface to content
+              flow.
             </p>
           </article>
           <article class="card">
             <h3>Execution & Prototyping</h3>
             <p>
-              Rapidly translating direction into testable, working artifacts.
+              Rapidly translating direction into testable, working artefacts
+              &mdash;
+              prototypes, builds, and practical rollouts that don't get stuck
+              in theory.
             </p>
           </article>
         </div>
       </section>
 
       <section id="work" class="section reveal d3">
-        <h2>Selected links</h2>
-        <div class="projects">
-          <a
-            class="project"
-            href="https://lucidity.design/"
-            target="_blank"
-            rel="noopener"
-          >
-            <small>Freelance studio</small>
-            <h3>lucidity.design</h3>
-            <p>Services, approach, and current consulting focus.</p>
-          </a>
-          <a
-            class="project"
-            href="https://richardgeorgedavis.com/"
-            target="_blank"
-            rel="noopener"
-          >
-            <small>Portfolio</small>
-            <h3>richardgeorgedavis.com</h3>
-            <p>Case studies and visual direction across client projects.</p>
-          </a>
-          <a
-            class="project"
-            href="https://richardgeorgedavis.github.io/Neural-Network/"
-            target="_blank"
-            rel="noopener"
-          >
-            <small>Experimental</small>
-            <h3>Biological Neural Network</h3>
-            <p>Cinema4D + three.js exploration of emergent visual behavior.</p>
-          </a>
-          <a
-            class="project"
-            href="https://github.com/RichardGeorgeDavis"
-            target="_blank"
-            rel="noopener"
-          >
-            <small>Code</small>
-            <h3>GitHub profile</h3>
-            <p>Experiments, demos, and evolving technical playgrounds.</p>
-          </a>
-        </div>
+        <h2>Work</h2>
+        <article class="card">
+          <p class="work-note">
+            Brand systems that scale. Digital products that feel coherent.
+            Builds that are stable, fast, and maintainable.
+          </p>
+          <div class="loop">
+            <strong>Discover &rarr; Design &rarr; Deliver &rarr; Drive</strong>
+            A simple loop: research and direction &rarr; systems and pages
+            &rarr; implementation &rarr; optimisation and iteration.
+          </div>
+        </article>
+      </section>
+
+      <section id="contact" class="section reveal d3">
+        <h2>Contact / Start a project</h2>
+        <article class="card">
+          <p>If you want to work together, send:</p>
+          <ul class="contact-list">
+            <li>your URL (or a short brief),</li>
+            <li>
+              what "better" means (clarity, leads, speed, sales, stability),
+              and
+            </li>
+            <li>any deadline that actually matters.</li>
+          </ul>
+          <p><strong>Hub:</strong> <a href="http://rgd.bio.link/">http://rgd.bio.link/</a></p>
+        </article>
       </section>
 
       <footer class="footer reveal d3">
-        <p>Designed and built by Richard George Davis, <span id="year"></span>.</p>
+        <p>Designed and built by Richard George Davis, 2026.</p>
       </footer>
     </main>
-
     <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
+      (function () {
+        var storageKey = "rgd-theme";
+        var root = document.documentElement;
+        var toggle = document.getElementById("theme-toggle");
+
+        if (!toggle) {
+          return;
+        }
+
+        function syncToggleState() {
+          var currentTheme = root.getAttribute("data-theme") || "light";
+          var isDark = currentTheme === "dark";
+          toggle.setAttribute(
+            "aria-label",
+            isDark ? "Switch to light mode" : "Switch to dark mode"
+          );
+          toggle.setAttribute(
+            "title",
+            isDark ? "Switch to light mode" : "Switch to dark mode"
+          );
+          toggle.setAttribute("aria-pressed", String(isDark));
+        }
+
+        toggle.addEventListener("click", function () {
+          var currentTheme = root.getAttribute("data-theme") || "light";
+          var nextTheme = currentTheme === "dark" ? "light" : "dark";
+          root.setAttribute("data-theme", nextTheme);
+          try {
+            localStorage.setItem(storageKey, nextTheme);
+          } catch (e) {}
+          syncToggleState();
+        });
+
+        syncToggleState();
+      })();
     </script>
   </body>
 </html>
