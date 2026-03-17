@@ -12,6 +12,11 @@ Markdown is a lightweight and easy-to-use syntax for styling your writing. It in
 Syntax highlighted code block
 
 # Header 1
+
+<!-- workspace-hub:cover:start -->
+![RichardGeorgeDavis.github.io cover](cover.png)
+<!-- workspace-hub:cover:end -->
+
 ## Header 2
 ### Header 3
 
