@@ -1,42 +1,54 @@
-## Welcome to GitHub Pages
+# RichardGeorgeDavis.github.io
 
-You can use the [editor on GitHub](https://github.com/RichardGeorgeDavis/RichardGeorgeDavis.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Personal landing page for Richard George Davis, published with GitHub Pages.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+![Site cover](cover.png)
 
-### Markdown
+## Overview
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+This repository contains a lightweight static site with:
 
-```markdown
-Syntax highlighted code block
+- a single hand-written [`index.html`](/Users/richard/Local Sites/Codex Workspace/repos/landing-pages/RichardGeorgeDavis.github.io/index.html) file
+- inline CSS for layout, typography, color themes, and motion
+- inline JavaScript for light/dark theme persistence via `localStorage`
+- GitHub Pages deployment from the repository root
 
-# Header 1
+The page presents a concise portfolio and contact surface built around three areas:
 
-<!-- workspace-hub:cover:start -->
-![RichardGeorgeDavis.github.io cover](cover.png)
-<!-- workspace-hub:cover:end -->
+- strategy architecture
+- experience design
+- execution and prototyping
 
-## Header 2
-### Header 3
+## Project Structure
 
-- Bulleted
-- List
+- [`index.html`](/Users/richard/Local Sites/Codex Workspace/repos/landing-pages/RichardGeorgeDavis.github.io/index.html): complete site markup, styling, and behavior
+- [`cover.png`](/Users/richard/Local Sites/Codex Workspace/repos/landing-pages/RichardGeorgeDavis.github.io/cover.png): repository preview image
+- [`_config.yml`](/Users/richard/Local Sites/Codex Workspace/repos/landing-pages/RichardGeorgeDavis.github.io/_config.yml): GitHub Pages config
+- [`.nojekyll`](/Users/richard/Local Sites/Codex Workspace/repos/landing-pages/RichardGeorgeDavis.github.io/.nojekyll): disables Jekyll processing on GitHub Pages
 
-1. Numbered
-2. List
+## Local Preview
 
-**Bold** and _Italic_ and `Code` text
+Because the site is plain HTML, you can preview it with any static file server.
 
-[Link](url) and ![Image](src)
+```bash
+python3 -m http.server 8000
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Then open `http://localhost:8000`.
 
-### Jekyll Themes
+You can also open [`index.html`](/Users/richard/Local Sites/Codex Workspace/repos/landing-pages/RichardGeorgeDavis.github.io/index.html) directly in a browser for quick checks, but using a local server is closer to production behavior.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/RichardGeorgeDavis/RichardGeorgeDavis.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+## Editing
 
-### Support or Contact
+Most changes happen in [`index.html`](/Users/richard/Local Sites/Codex Workspace/repos/landing-pages/RichardGeorgeDavis.github.io/index.html):
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+- update hero copy, services, work, and contact content in the HTML sections
+- adjust colors, spacing, and responsive behavior in the inline `<style>` block
+- update theme toggle behavior in the inline `<script>` blocks
+- replace outbound links such as the `rgd.bio.link` hub URL when needed
+
+## Deployment
+
+Push changes to the repository branch configured for GitHub Pages and the site will republish automatically.
+
+This repository includes [`.nojekyll`](/Users/richard/Local Sites/Codex Workspace/repos/landing-pages/RichardGeorgeDavis.github.io/.nojekyll), so the page is served as a static site rather than processed as a Jekyll project.
