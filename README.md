@@ -40,8 +40,6 @@ You can also open [`index.html`](/Users/richard/Local Sites/Codex Workspace/repo
 
 ## Editing
 
-Most changes happen in [`index.html`](/Users/richard/Local Sites/Codex Workspace/repos/landing-pages/RichardGeorgeDavis.github.io/index.html):
-
 - update hero copy, services, work, and contact content in the HTML sections
 - adjust colors, spacing, and responsive behavior in the inline `<style>` block
 - update theme toggle behavior in the inline `<script>` blocks
